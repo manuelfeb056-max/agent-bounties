@@ -3,7 +3,7 @@
 **Bounty:** [#7 — LP Impermanent Loss Estimator](https://github.com/daydreamsai/agent-bounties/issues/7)
 **Agent:** `il-estimator-x402` — estimates impermanent loss and fee APR for LP positions on major AMMs, gated by real x402 payments on Solana.
 **Repository:** https://github.com/manuelfeb056-max/il-estimator-x402
-**Live deployment:** `https://il-estimator-x402.deno.net` *(provisioning — URL will be confirmed in this PR within hours; all code, tests and backtest below are final)*
+**Live deployment:** `https://il-estimator-x402.manuelfeb056-max.deno.net` ✅ (Deno Deploy, free tier, production, serving traffic — verified 2026-09-18: `GET /health` → 200, `GET /.well-known/x402.json` → 200, `POST /estimate` without payment → 402 with Solana/USDC requirements)
 **Solana wallet (payout):** `9XcJk1iugDhMxLRYHPGbJbDAWTLCJhdVGqyoDTyKyzBt`
 
 ## What it does
@@ -21,11 +21,11 @@ Supported AMMs: **Uniswap V2** (constant-product 50/50), **Uniswap V3** (full-ra
 
 ```bash
 # 402 with payment requirements
-curl -X POST https://<deploy>/estimate -H 'content-type: application/json' \
+curl -X POST https://il-estimator-x402.manuelfeb056-max.deno.net/estimate -H 'content-type: application/json' \
   -d '{"pool_address":"SOL-USDC-raydium","window_hours":168,"price_start":200,"price_end":260}'
 
 # paid call (after sending 0.01 USDC on Solana mainnet)
-curl -X POST https://<deploy>/estimate -H 'content-type: application/json' \
+curl -X POST https://il-estimator-x402.manuelfeb056-max.deno.net/estimate -H 'content-type: application/json' \
   -H 'X-Payment: <confirmed-tx-signature>' \
   -d '{"pool_address":"SOL-USDC-raydium","window_hours":168,"price_start":200,"price_end":260,
        "amm":"raydium","fee_tier_bps":25,"volume_window_usd":5000000,"tvl_usd":20000000}'
